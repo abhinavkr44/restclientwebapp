@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="static/css/style.css"/>
+	<script src="static/js/jquery-2.1.1.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="static/js/test.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+</head>
+
+<body>
+<h1></h1>
+	<div data-ng-app="userDetailApp" data-ng-controller="userDetailController" class="container">
+		<div class="table-responsive col-md-offset-2 col-md-7" style="margin-top:50px;">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Age</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+					<tr data-ng-repeat="person in userDetails">
+						<td>{{ $index + 1 }}</td>
+						<td>{{ person.fname }}</td>
+						<td>{{ person.lname }}</td>
+						<td>{{ person.age }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
