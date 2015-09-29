@@ -36,26 +36,20 @@
         <property name="fileEncoding" value="UTF-8"/>
     </bean>
 
-    <bean id="clientJsonProvider"  class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"></bean>
+    <bean id="clientJsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
    	
-   	<util:list id="clientWebClientProviders">
-		<ref bean="clientJsonProvider" />
-	</util:list>
+   	<bean id="clientConfig" class="com.sun.jersey.api.client.config.DefaultClientConfig">
+   	    <constructor-arg>
+	        <value type="java.lang.Class">org.codehaus.jackson.jaxrs.JacksonJsonProvider</value>
+	    </constructor-arg>
+   	</bean>
+   	
+   	<bean id="client" class="com.sun.jersey.api.client.Client" factory-method="create">
+   	    <constructor-arg ref="clientConfig" />
+   	</bean>
+   	
+   	<bean id="webResource" factory-bean="client" factory-method="resource">
+   	    <constructor-arg type="java.lang.String" value="${rest.customerservice.uri}" />
+   	</bean>
 	
-	<bean id="webClient" class="org.apache.cxf.jaxrs.client.WebClient" factory-method="create">
-		<constructor-arg type="java.lang.String" value="${aws.mediacloud.uri}" />
-		<constructor-arg ref="clientWebClientProviders" />
-	</bean>
-	
-	<bean id="mongoClientURI"  class="com.mongodb.MongoClientURI">
-		<constructor-arg type="java.lang.String" value="${mango.client.uri}"/>
-	</bean>
-	
-	<bean id="mongoClient" class="com.mongodb.MongoClient">
-		<constructor-arg ref="mongoClientURI" />
-	</bean>
-	
-	<bean id="mongoDB" factory-bean="mongoClient" factory-method="getDB">
-		<constructor-arg type="java.lang.String" value="${mango.client.db}"/>
-	</bean>
 </beans>  

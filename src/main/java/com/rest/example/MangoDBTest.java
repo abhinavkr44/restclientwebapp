@@ -1,21 +1,11 @@
 package com.rest.example;
 
-import java.net.UnknownHostException;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.rest.example.bean.Person;
+public class MangoDBTest {/*
 
-public class MangoDBTest {
-
-	/**
+	*//**
 	 * @param args
-	 */
+	 *//*
 	public static void main(String[] args) {
 		MongoClient mongoClient;
 		try {
@@ -38,11 +28,11 @@ public class MangoDBTest {
 		
 	}
 	
-	public static final DBObject toDBObject(Person person) {
+	public static final DBObject toDBObject(Customer person) {
 	    return new BasicDBObject()
 	                     .append("fname", person.getFname())
 	                     .append("lname", person.getLname())
 	                     .append("age", person.getAge());
 	}
 
-}
+*/}

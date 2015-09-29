@@ -1,29 +1,15 @@
 package com.rest.example.service;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.rest.example.bean.Person;
-
-@Service
-public class MangoService {
+public class MangoService {/*
 	
-	@Autowired
 	DB database;
 	
 	public void insertDocument(Object object, String collectionDoc) {
 		DBCollection collection = database.getCollection(collectionDoc);
 		//DBObject myPerson = new BasicDBObject("_id", "jo").append("fname", "Abhinav").append("lname", "Kumar").append("age", "25");
-		if(object instanceof Person){
-			collection.insert(toDBObject((Person)object));
+		if(object instanceof Customer){
+			collection.insert(toDBObject((Customer)object));
 		} else {
 			System.out.println("not an instance of person");
 		}
@@ -47,10 +33,10 @@ public class MangoService {
 		return listOfPerson;
 	}
 	
-	public static final DBObject toDBObject(Person person) {
+	public static final DBObject toDBObject(Customer person) {
 	    return new BasicDBObject()
 	                     .append("fname", person.getFname())
 	                     .append("lname", person.getLname())
 	                     .append("age", person.getAge());
 	}
-}
+*/}

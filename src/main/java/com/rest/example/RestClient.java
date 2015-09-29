@@ -1,38 +1,31 @@
 package com.rest.example;
 
-import javax.ws.rs.core.Response;
+import java.util.List;
 
-import org.apache.cxf.jaxrs.client.WebClient;
+import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Component;
 
-@Controller
+import com.rest.example.bean.Customer;
+import com.sun.jersey.api.client.GenericType;
+import com.sun.jersey.api.client.WebResource;
+
+@Component
 public class RestClient {
 
 	@Autowired
-	private WebClient webClient;
+	private WebResource webResource;
 
-	@RequestMapping(value = "/getJsonResponse", method = RequestMethod.GET)
-	public @ResponseBody String getJsonResponse() {
-	  Response response = webClient.post(null);
-	  String json = null;
-	  if(response.getStatus() == 200){
-		  json = response.readEntity(String.class);
-	  }
-	  return json;
+	public List<Customer> getJsonResponse() {
+		List<Customer> customerList = webResource.path("/customerList")
+        			.accept(MediaType.APPLICATION_JSON)
+        			.get(new GenericType<List<Customer>>() {});
+		return customerList;
 	}
-	
-	@RequestMapping(value = "/setJsonRequest", method = RequestMethod.POST)
-	public @ResponseBody String setJsonRequest() {
-	  Response response = webClient.post(null);
-	  String json = null;
-	  if(response.getStatus() == 200){
-		  json = response.readEntity(String.class);
-	  }
-	  return json;
+
+	public String setJsonRequest() {
+		return null;
 	}
-	
-  }
+
+}

@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rest.example.bean.Person;
-import com.rest.example.service.MangoService;
+import com.rest.example.bean.Customer;
 
 @Controller
 public class ClientController {
-
+	
 	@Autowired
-	MangoService mangoService;
+	RestClient restClient;
 	
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String loginPage(HttpServletRequest request, Model model) {
@@ -38,16 +37,16 @@ public class ClientController {
 		
 	}
 	
-	@RequestMapping(value = "/register" , method = RequestMethod.GET)
+/*	@RequestMapping(value = "/register" , method = RequestMethod.GET)
 	public String register(HttpServletRequest request, Model model) {
-		Person person = new Person(request.getParameter("fname"), request.getParameter("lname"), Integer.parseInt(request.getParameter("age")));
+		Customer person = new Customer(request.getParameter("fname"), request.getParameter("lname"), Integer.parseInt(request.getParameter("age")));
 		mangoService.insertDocument(person,"person");
 		return "success";
-	}
+	}*/
 	
 	@RequestMapping(value = "/userDetails" , method = RequestMethod.GET)
-	public @ResponseBody List UserDetails(HttpServletRequest request, Model model) {
-		return mangoService.getAllDocuments("person");
+	public @ResponseBody List<Customer> UserDetails(HttpServletRequest request, Model model) {
+		return restClient.getJsonResponse();
 	}
 	
 
