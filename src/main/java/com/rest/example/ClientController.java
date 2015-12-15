@@ -28,8 +28,8 @@ public class ClientController {
 	public String indexPage(HttpServletRequest request, Model model) {
 		String submit = request.getParameter("submit");
 		if(submit.equals("login")){
-			String uname = request.getParameter("uname");
-			String pword = request.getParameter("pword");
+			//String uname = request.getParameter("uname");
+			//String pword = request.getParameter("pword");
 			return "index";
 		} else{
 			return "register";
@@ -44,10 +44,14 @@ public class ClientController {
 		return "success";
 	}*/
 	
+	@RequestMapping(value = "/getListOfCurrencies" , method = RequestMethod.GET)
+	public @ResponseBody String getListOfCurrencies(HttpServletRequest request, Model model) {
+		return restClient.getListOfCurrencies();
+	}
+	
 	@RequestMapping(value = "/userDetails" , method = RequestMethod.GET)
 	public @ResponseBody List<Customer> UserDetails(HttpServletRequest request, Model model) {
 		return restClient.getJsonResponse();
 	}
-	
 
 }

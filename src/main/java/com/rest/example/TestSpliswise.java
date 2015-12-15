@@ -2,20 +2,23 @@ package com.rest.example;
 
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
+import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
-import org.scribe.model.Token;
 import org.scribe.model.Verb;
-import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
+import com.google.gson.JsonObject;
 import com.rest.example.bean.SplitwiseApi;
 
 public class TestSpliswise {
@@ -39,11 +42,11 @@ public class TestSpliswise {
 		}
 		
 		
-		OAuthService service = new ServiceBuilder()
+		/*OAuthService service = new ServiceBuilder()
         .provider(SplitwiseApi.class)
         .apiKey("AlFxMUiq1DLICUiAz6APo7QdK2ZuY23hHn5z06ly")
         .apiSecret("zQCGVXr8HwubKc6XQOezz5FiZChsdoLE4oMyxXVr")
-        .build();
+        .build();*/
 		//Token requestToken = service.getRequestToken();
 		//String authUrl = service.getAuthorizationUrl(requestToken);
 		//Verifier v = new Verifier("verifier you got from the user");
@@ -51,6 +54,15 @@ public class TestSpliswise {
 		OAuthRequest request = new OAuthRequest(Verb.GET, "https://secure.splitwise.com/api/v3.0/get_currencies");
 		//service.signRequest(accessToken, request); // the access token from step 4
 		Response response = request.send();
+		JsonObject jsonObject = (JsonObject)new JsonParser().parse(response.getBody());
+		JsonArray asJsonArray = jsonObject.getAsJsonArray("currencies");
+		Iterator<JsonElement> iterator = asJsonArray.iterator();
+		while(iterator.hasNext()){
+			JsonElement next = iterator.next();
+			JsonObject asJsonObject = next.getAsJsonObject();
+			JsonElement jsonElement = asJsonObject.get("unit");
+			System.out.println(jsonElement.getAsString());
+		}
 		System.out.println(response.getBody());
 		
 		

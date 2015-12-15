@@ -4,12 +4,13 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="static/css/style.css"/>
 	<script src="static/js/jquery-2.1.1.min.js"></script>
+	<!-- <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script> -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="static/js/test.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
 </head>
 
-<body>
+<body data-ng-app="userApp">
 	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
@@ -18,12 +19,12 @@
 	    <div>
 	      <ul class="nav navbar-nav">
 	        <li class="active"><a href="#">Home</a></li>
-	        <li><a href="#">List of currencies</a></li>
+	        <li><a href="#" data-toggle="modal" id="currencyButton" data-target="#myModal">List of currencies</a></li>
 	      </ul>
 	    </div>
 	  </div>
 	</nav>
-	<div data-ng-app="userDetailApp" data-ng-controller="userDetailController" class="container">
+	<div data-ng-controller="userDetailController" class="container">
 		<div class="table-responsive col-md-offset-2 col-md-7" style="margin-top:50px;">
 			<table class="table table-bordered table-striped">
 				<thead>
@@ -45,5 +46,53 @@
 			</table>
 		</div>
 	</div>
+
+
+	<!-- Modal -->
+	<div data-ng-controller="currenciesController" class="modal fade"
+		id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">List of Currencies</h4>
+				</div>
+				<form class="form-inline">
+					<div class="form-group">
+						<label>Search</label> <input type="text" data-ng-model="search"
+							class="form-control" placeholder="Search">
+					</div>
+				</form>
+				<div class="modal-body">
+					<table id="currencyTable"
+						class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>currency code</th>
+								<th>unit</th>
+							</tr>
+						</thead>
+						<tbody id="tbody">
+							<tr data-ng-repeat="currency in listOfCurrencies|filter:search">
+								<td>{{ $index + 1 }}</td>
+								<td>{{ currency.currency_code }}</td>
+								<td>{{ currency.unit }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	http://code.ciphertrick.com/2015/06/01/search-sort-and-pagination-ngrepeat-angularjs/
+
 </body>
 </html>
